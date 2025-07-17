@@ -17,15 +17,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Debug - List files
-        run: |
-          ls -la
-          ls -la pnpm-lock.yaml || echo "pnpm-lock.yaml not found"
-          pwd
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 8
+          version: latest
       - name: Setup Node.js ${{matrix.node-version}}
         uses: actions/setup-node@v4
         with:
