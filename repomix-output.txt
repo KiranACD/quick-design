@@ -1,0 +1,442 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+================================================================
+File Summary
+================================================================
+
+Purpose:
+--------
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+
+File Format:
+------------
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  a. A separator line (================)
+  b. The file path (File: path/to/file)
+  c. Another separator line
+  d. The full contents of the file
+  e. A blank line
+
+Usage Guidelines:
+-----------------
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+
+Notes:
+------
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+
+
+================================================================
+Directory Structure
+================================================================
+src/
+  lib/
+    utils.ts
+  components.tsx
+.eslintrc.js
+.gitignore
+package.json
+README.md
+tsconfig.json
+
+================================================================
+Files
+================================================================
+
+================
+File: src/lib/utils.ts
+================
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+/**
+ * Combines clsx and tailwind-merge for conditional className merging
+ * with Tailwind CSS conflict resolution.
+ * 
+ * @param inputs - Class values (strings, conditionals, objects)
+ * @returns Merged className string
+ * 
+ * @example
+ * cn("px-4", "py-2", isActive && "bg-blue-500")
+ * cn("p-4", "p-6") // Returns "p-6" (conflict resolved)
+ */
+export function cn(...inputs: ClassValue[]) {
+    return twMerge(clsx(inputs));
+}
+
+================
+File: src/components.tsx
+================
+import React from "react";
+import {cn} from "./lib/utils";
+
+/**
+ * Common props for all layout components
+ */
+type ComponentProps = {
+    className?: string;
+    children?: React.ReactNode;
+    id?: string;
+    style?: React.CSSProperties;
+};
+
+/**
+ * Section Component - Semantic wrapper for content sections
+ * Provides consisten vertical spacing
+ */
+export const Section = ({ children, className, id, style }: ComponentProps ) => {
+    <section 
+        className={cn("py-2 sm:py-4", className)}
+        id={id}
+        style={style}
+    >
+        {children}
+    </section>
+};
+
+/**
+ * Container componet - Centers content with max width and padding
+ * Provides responsive horizontal spacing
+ */
+export const Container = ({ children, className, id, style }: ComponentProps ) => {
+    <div
+        className={cn(
+            "mx-auto max-w-7xl p-4 sm:p-6",
+            className
+        )}
+        id={id}
+        style={style}
+    >
+        {children}
+    </div>
+};
+
+================
+File: .eslintrc.js
+================
+module.exports = {
+    root: true,
+    env: {
+        browser: true,
+        es2020: true,
+        node: true,
+    },
+    extends: [
+        'eslint:recommended',
+        'plugin:@typescript-eslint/recommended',
+        'plugin:react/recommended',
+        'plugin:react-hooks/recommended',
+    ],
+    parser: '@typescript-eslint/parser',
+    parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+        ecmaFeatures: {
+            jsx: true,
+        },
+    },
+    plugins: [
+        '@typescript-eslint',
+        'react',
+        'react-hooks',
+    ],
+    rules: {
+        'react/react-in-jsx-scope': 'off',
+        'react/prop-types': 'off',
+        '@typescript-eslint/no-unused-vars':['error', {argsIgnorePattern: '^_'}],
+        '@typescript-eslint/explicit-function-return-type':'off',
+        '@typescript-eslint/explicit-module-boundary-types':'off',
+        'no-console':'warn',
+        'prefer-const':'error',
+    },
+    settings: {
+        react: {
+        version: 'detect',
+        },
+    },
+    ignorePatterns: [
+        'dist',
+        'node_modules',
+        '*.config.js',
+    ],
+}
+
+================
+File: .gitignore
+================
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Production builds
+dist/
+build/
+*.tsbuildinfo
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Testing
+coverage/
+.nyc_output
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+
+# Package manager lockfiles (optional - see note below)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# Logs
+logs
+*.log
+
+================
+File: package.json
+================
+{
+    "name": "quick-design",
+    "version": "0.1.0",
+    "description": "A lightweight, flexible design system for React applications",
+    "main": "src/components.tsx",
+    "exports": {
+        ".": "./src/components.tsx",
+        "./utils": "./src/lib/utils.ts"
+    },
+    "scripts": {
+        "lint": "eslint src --ext .ts,.tsx",
+        "lint:fix": "eslint src --ext .ts,.tsx --fix",
+        "test": "echo \"No tests yet\" && exit 0"
+    },
+    "keywords": [
+        "react",
+        "design-system",
+        "components",
+        "typescript",
+        "tailwind"
+    ],
+    "author": "Kiran",
+    "license": "MIT",
+    "peerDependencies": {
+        "react": ">= 16.8.0",
+        "react-dom": ">= 16.8.0",
+        "tailwindcss": ">= 3.0.0"
+    },
+    "dependencies": {
+        "clsx": "^2.1.1",
+        "tailwind-merge": "^2.6.0"
+    },
+    "devDependencies": {
+        "@types/react": "^18.0.0",
+        "@types/react-dom": "^18.0.0",
+        "typescript": "^5.0.0",
+        "eslint": "^8.57.0",
+        "@typescript-eslint/eslint-plugin": "^7.18.0",
+        "@typescript-eslint/parser": "^7.18.0",
+        "eslint-plugin-react": "^7.33.2",
+        "eslint-plugin-react-hooks": "^4.6.0"
+    },
+    "files": [
+        "src"
+    ]
+}
+
+================
+File: README.md
+================
+# Quick Design
+
+A lightweight, flexible design system for React applications built with Tailwind CSS.
+
+## Features
+
+- 🎨 Minimal & Flexible - Provides essential layout components without being opinionated
+- ⚡ Framework Agnostic - Works with Next.js, Vite, Create React App, and any React setup
+- 🎯 TypeScript First - Full type safety with excellent IntelliSense support
+- 🚀 Zero Runtime - All styles compiled at build time via Tailwind CSS
+- 📱 Responsive - Mobile-first responsive design out of the box
+
+## Installation
+
+```
+npm install quick-design
+```
+
+## Requirements
+
+- React 16.8.0 or higher
+- Tailwind CSS 3.0.0 or higher
+
+## Quick Start
+
+```
+import { Section, Container } from "quick-design";
+
+export default function Page() {
+  return (
+    <main>
+      <Section>
+        <Container>
+          <h1>Welcome to Quick Design</h1>
+          <p>Build layouts quickly with minimal, flexible components.</p>
+        </Container>
+      </Section>
+    </main>
+  );
+}
+```
+
+## Components
+
+### Section
+
+A semantic wrapper for content sections with minimal vertical spacing.
+
+```
+<Section>
+  <h2>Section Title</h2>
+  <p>Section content...</p>
+</Section>
+```
+
+**Default spacing**: py-2 (8px) on mobile, sm:py-4 (16px) on 640px+ screens.
+
+### Container
+
+Centers content with a maximum width and responsive padding.
+
+```
+<Container>
+  <p>This content will be centered with appropriate padding.</p>
+</Container>
+```
+
+**Features:**
+
+- `mx-auto` - Horizontally centered
+- `max-w-7xl` - Maximum width of 1280px
+- `p-4 sm:p-6` - Responsive padding
+
+
+## Customization
+
+All components accept a `className` prop for custom styling:
+
+```
+<Section className="py-12 bg-gray-50">
+  <Container className="max-w-4xl">
+    <h1>Custom styled section</h1>
+  </Container>
+</Section>
+```
+
+## Utilities
+
+The library also exports utility functions:
+
+```
+import { cn } from "quick-design/utils";
+
+// Merge classNames with conflict resolution
+const classes = cn("px-4", "py-2", isActive && "bg-blue-500");
+```
+
+## TypeScript
+
+All components include full TypeScript support:
+
+```
+import type { ComponentProps } from "react";
+
+// All components accept standard React props
+<Section className="custom-class" id="hero" style={{ margin: 0 }}>
+  Content
+</Section>
+```
+
+## License
+
+MIT
+
+================
+File: tsconfig.json
+================
+{
+    "compilerOptions": {
+        "target": "ES2020",
+        "lib": ["DOM", "DOM.Iterable", "ES6"],
+        "allowJs": true,
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "module": "ESNext",
+        "moduleResolution": "bundler",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "noEmit": true,
+        "jsx": "react-jsx",
+        "declaration": true,
+        "declarationMap": true,
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["./src/*"]
+        }
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist"
+    ]
+}
+
+
+
+
+================================================================
+End of Codebase
+================================================================
