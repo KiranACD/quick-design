@@ -1,9 +1,17 @@
 {
-  "name": "quick-design",
+  "name": "@kiranacd/quick-design",
   "version": "0.1.0",
   "description": "A lightweight, flexible design system for React applications",
   "author": "Kiran",
   "license": "MIT",
+  "homepage": "https://github.com/kiranacd/quick-design#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kiranacd/quick-design.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kiranacd/quick-design/issues"
+  },
   "keywords": [
     "react",
     "design-system",
@@ -17,6 +25,7 @@
   },
   "main": "src/components.tsx",
   "files": [
+    "README.md",
     "src"
   ],
   "scripts": {
@@ -25,7 +34,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "prepublishOnly": "npm run build && npm run lint",
+    "prepublishOnly": "npm run lint && npm run test && npm run typecheck",
     "prepare": "husky"
   },
   "peerDependencies": {
