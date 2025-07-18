@@ -71,7 +71,6 @@ Centers content with a maximum width and responsive padding.
 - `max-w-7xl` - Maximum width of 1280px
 - `p-4 sm:p-6` - Responsive padding
 
-
 ## Customization
 
 All components accept a `className` prop for custom styling:
@@ -93,19 +92,6 @@ import { cn } from "quick-design/utils";
 
 // Merge classNames with conflict resolution
 const classes = cn("px-4", "py-2", isActive && "bg-blue-500");
-```
-
-## TypeScript
-
-All components include full TypeScript support:
-
-```
-import type { ComponentProps } from "react";
-
-// All components accept standard React props
-<Section className="custom-class" id="hero" style={{ margin: 0 }}>
-  Content
-</Section>
 ```
 
 ## License
