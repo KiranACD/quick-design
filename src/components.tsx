@@ -35,7 +35,7 @@ export function Container({ children, className, id, style }: ComponentProps) {
   return (
     <div
       className={cn(
-        "mx-auto max-w-7xl p-4 sm:p-6",
+        "mx-auto max-w-full p-4 sm:p-6",
         className,
       )}
       id={id}
